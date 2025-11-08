@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\SizeCast;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -34,5 +35,11 @@ class Repository extends Model
         return $this->belongsToMany(User::class, 'user_repository')
             ->withPivot('commit_count')
             ->withTimestamps();
+    }
+
+    public function scopeFilters(Builder $builder, $filter): void
+    {
+        $builder->where('name', 'like', "%{$filter}%")
+            ->orWhere('kvk_number', 'like', "%{$filter}%");
     }
 }
