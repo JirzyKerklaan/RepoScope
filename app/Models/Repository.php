@@ -40,6 +40,8 @@ class Repository extends Model
     public function scopeFilters(Builder $builder, $filter): void
     {
         $builder->where('name', 'like', "%{$filter}%")
-            ->orWhere('kvk_number', 'like', "%{$filter}%");
+            ->orWhere('description', 'like', "%{$filter}%")
+            ->orWhere('html_url', 'like', "%{$filter}%")
+            ->orWhere('language', 'like', "%{$filter}%");
     }
 }
