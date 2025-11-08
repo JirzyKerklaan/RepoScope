@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -32,8 +32,10 @@ class User extends Authenticatable
         ];
     }
 
-    public function repositories(): HasMany
+    public function repositories(): BelongsToMany
     {
-        return $this->hasMany(Repository::class);
+        return $this->belongsToMany(Repository::class, 'user_repository')
+            ->withPivot('commit_count')
+            ->withTimestamps();
     }
 }

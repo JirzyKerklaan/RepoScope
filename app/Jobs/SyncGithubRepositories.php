@@ -7,7 +7,6 @@ use App\Services\RepositoryService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
 
 class SyncGithubRepositories implements ShouldQueue
 {
@@ -20,9 +19,8 @@ class SyncGithubRepositories implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle(RepositoryService $service): void
+    public function handle(RepositoryService $repositoryService): void
     {
-        Log::info('start fetching & saving repositories');
-        $service->fetchAndSave($this->user);
+        $repositoryService->fetchAndSave($this->user);
     }
 }

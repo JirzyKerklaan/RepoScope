@@ -14,13 +14,17 @@ return new class extends Migration
         Schema::create('repositories', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('github_id')->unique()->index();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->boolean('private')->default(false);
             $table->text('description')->nullable();
             $table->string('html_url');
             $table->string('default_branch')->nullable();
+            $table->bigInteger('branch_count')->default(0);
+            $table->bigInteger('pulls_count')->default(0);
+            $table->string('language')->default('Markdown')->nullable();
+            $table->timestamp('last_pushed_at')->nullable();
             $table->timestamp('last_synced_at')->nullable();
+            $table->bigInteger('size')->default(0);
             $table->timestamps();
         });
     }
