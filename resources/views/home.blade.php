@@ -17,15 +17,20 @@
 
                         <section>
                             <div class="p-2">
-                                @foreach($repositories as $repository)
-                                    @include('_partials.repository')
-                                @endforeach
+                                @if($repositories->count() <= 0)
+                                    <p class="text-sm text-slate-500 mt-1">No repositories found</p>
+                                @else
+                                    @foreach($repositories as $repository)
+                                        @include('_partials.repository')
+                                    @endforeach
+                                @endif
                             </div>
                         </section>
                     </div>
                 </div>
 
                 <div class="col-span-7">
+                    @if ($repositories->count() > 0)
                     <div class="bg-slate-900 rounded-lg border border-slate-800">
                         <div class="p-6 border-b border-slate-800">
                             <div class="flex items-start justify-between mb-4">
@@ -202,6 +207,7 @@
 {{--                                </div>--}}
 {{--                            </ScrollArea>--}}
 {{--                        </div>--}}
+                        @endif
                     </div>
                 </div>
             </div>

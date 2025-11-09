@@ -1,5 +1,5 @@
 @php
-    if($repository->name === 'RepoScope') {
+    if($repository->name === 'tep-cms') {
         $active = true;
     } else {
         $active = false;

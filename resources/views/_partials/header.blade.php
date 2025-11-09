@@ -14,10 +14,10 @@
 
         <div class="flex items-center gap-3">
             <x-button class="text-slate-400 hover:text-slate-100 hover:bg-slate-800">
-                <icon type="bell" class="w-5 h-5" />
+                <icon type="bell" class="w-5 h-5 text-slate-400" />
             </x-button>
             <x-button class="text-slate-400 hover:text-slate-100 hover:bg-slate-800">
-                <icon type="settings" class="w-5 h-5" />
+                <icon type="settings" class="w-5 h-5 text-slate-400" />
             </x-button>
             <div class="flex items-center gap-3 pl-4 ml-2 border-l border-slate-800">
                 <img

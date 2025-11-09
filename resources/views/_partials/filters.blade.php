@@ -3,7 +3,7 @@
         <icon type="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-5" ></icon>
         <x-input type="text" id="filter" name="filter" placeholder="Search repositories..." value="{{ $filter ?? '' }}" />
     </div>
-    <icon type="funnel" className="w-4 h-4 text-slate-500"></icon>
+    <icon type="funnel" className="w-4 h-4 text-slate-400"></icon>
     <x-select
         name="repository"
         :options="[

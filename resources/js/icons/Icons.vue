@@ -23,6 +23,7 @@ import {
     Calendar,
     Users,
     TrendingUp,
+    LogOut,
 } from 'lucide-vue-next';
 
 export default {
@@ -53,6 +54,7 @@ export default {
                 calendar: Calendar,
                 users: Users,
                 trendingup: TrendingUp,
+                logout: LogOut,
             };
 
             return icons[this.type.toLowerCase()] || null;
