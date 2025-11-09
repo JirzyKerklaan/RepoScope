@@ -16,6 +16,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('home');
+
     Route::get('/test', function () {
         SyncGithubRepositories::dispatchSync(auth()->user());
         redirect()->route('home');

@@ -37,7 +37,7 @@ class Repository extends Model
             ->withTimestamps();
     }
 
-    public function scopeFilters(Builder $builder, $filter): void
+    public function scopeFilters(Builder $builder, string $filter): void
     {
         $builder->where('name', 'like', "%{$filter}%")
             ->orWhere('description', 'like', "%{$filter}%")

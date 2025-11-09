@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('default_branch')->nullable();
             $table->bigInteger('branch_count')->default(0);
             $table->bigInteger('pulls_count')->default(0);
-            $table->string('language')->default('Markdown')->nullable();
+            $table->string('language')->default('Markdown');
             $table->timestamp('last_pushed_at')->nullable();
             $table->timestamp('last_synced_at')->nullable();
             $table->bigInteger('size')->default(0);
