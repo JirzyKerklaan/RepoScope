@@ -5,10 +5,13 @@
     </div>
     <icon type="funnel" className="w-4 h-4 text-slate-400"></icon>
     <x-select
-        name="repository"
+        name="private"
         :options="[
-        'all' => 'All Repos',
-    ]"
+            'all' => 'View all',
+            true => 'Private',
+            false => 'Public',
+        ]"
+        value="{{ $private ?? '' }}"
         selected="all"
     />
     <x-select

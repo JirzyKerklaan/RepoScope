@@ -29,6 +29,14 @@
                     <p class="text-sm text-slate-100">{{auth()->user()->name}}</p>
                     <p class="text-xs text-slate-500">{{auth()->user()->email}}</p>
                 </div>
+                <x-button
+                    variant="link"
+                    href="{{route('logout')}}"
+                    size="icon"
+                    class="text-slate-400! hover:text-red-400! hover:bg-slate-800! ml-2!"
+                >
+                    <icon type="logout" class="w-5 h-5 text-slate-400" />
+                </x-button>
             </div>
         </div>
     </div>

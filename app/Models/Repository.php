@@ -44,4 +44,9 @@ class Repository extends Model
             ->orWhere('html_url', 'like', "%{$filter}%")
             ->orWhere('language', 'like', "%{$filter}%");
     }
+
+    public function scopeVisibility(Builder $builder, bool $visibility): void
+    {
+        $builder->where('private', $visibility);
+    }
 }

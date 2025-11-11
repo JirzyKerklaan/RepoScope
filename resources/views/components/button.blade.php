@@ -23,6 +23,12 @@
     $classes = trim("$baseClasses $variantClasses $sizeClasses " . ($class ?? ''));
 @endphp
 
-<button {{ $attributes->merge(['class' => $classes]) }} data-slot="button">
-    {{ $slot }}
-</button>
+@if($variant === 'link')
+    <a {{ $attributes->merge(['class' => $classes]) }} data-slot="button">
+        {{$slot}}
+    </a>
+@else
+    <button {{ $attributes->merge(['class' => $classes]) }} data-slot="button">
+        {{ $slot }}
+    </button>
+@endif

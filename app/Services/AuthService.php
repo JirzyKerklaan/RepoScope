@@ -12,13 +12,12 @@ class AuthService
         return User::updateOrCreate(
             ['github_id' => $githubUser->id],
             [
-                'name' => $githubUser->nickname ?? $githubUser->name,
-                'email' => $githubUser->email,
+                'name' => $githubUser->login ?? $githubUser->nickname ?? $githubUser->name,
+                'email' => $githubUser->email ?? null,
                 'password' => bcrypt(str()->random(24)),
                 'avatar' => $githubUser->avatar,
                 'url' => $githubUser->user['html_url'],
                 'api_url' => $githubUser->user['url'],
-                // optionally encrypt the token
                 'token' => $githubUser->token ?? null,
             ]
         );

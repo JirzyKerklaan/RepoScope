@@ -5,14 +5,23 @@ namespace App\Services;
 use App\Http\Integrations\Github\GithubApi;
 use App\Http\Integrations\Github\Requests\FetchRepositories;
 use App\Http\Integrations\Github\Requests\FetchRepositoryBranches;
+use App\Http\Integrations\Github\Requests\FetchRepositoryCollaborators;
 use App\Http\Integrations\Github\Requests\FetchRepositoryCommits;
 use App\Http\Integrations\Github\Requests\FetchRepositoryPullRequests;
+use App\Http\Integrations\Github\Requests\FetchUser;
 use App\Models\Repository;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class RepositoryService
 {
+    protected $authService;
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function fetchAndSave(User $user): void
     {
         $page = 1;
@@ -41,6 +50,7 @@ class RepositoryService
 
                 $this->fetchRepositoryCommits($forge, $user, $repository);
                 $this->fetchRepositoryBranches($forge, $user, $repository);
+                $this->fetchRepositoryCollaborators($forge, $user, $repository);
                 $this->fetchRepositoryPullRequests($forge, $user, $repository);
             }
 
@@ -83,6 +93,31 @@ class RepositoryService
         } while (count($response) === 100);
 
         $repository->update(['branch_count' => $branchCount]);
+    }
+
+    public function fetchRepositoryCollaborators($forge, User $user, Repository $repository): void
+    {
+        $request = new FetchRepositoryCollaborators($user->name, $repository->name);
+        $response = $forge->send($request)->throw()->json();
+
+        foreach ($response as $collaborator) {
+            $userRequest = new FetchUser($collaborator['id']);
+            $userResponse = (object) $forge->send($userRequest)->throw()->json();
+            Log::info('user response', [$userResponse]);
+            $user = User::updateOrCreate([
+                'github_id' => $collaborator['id'],
+            ], [
+                    'name' => $userResponse->login ?? $userResponse->name,
+                    'email' => $userResponse->email ?? null,
+                    'password' => bcrypt(str()->random(24)),
+                    'avatar' => $userResponse->avatar_url,
+                    'url' => $userResponse->html_url,
+                    'api_url' => $userResponse->url,
+                    'token' => $userResponse->token ?? null,
+            ]);
+
+            $user->repositories()->attach($repository->id);
+        }
     }
 
     public function fetchRepositoryPullRequests($forge, User $user, Repository $repository): void

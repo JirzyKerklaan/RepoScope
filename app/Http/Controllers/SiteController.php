@@ -12,11 +12,16 @@ class SiteController extends Controller
     public function index(Request $request)
     {
         $filter = $request->query('filter');
+        $private = $request->query('private');
         $user = auth()->user();
 
         $repositories = $user->repositories()
+            ->with(['users'])
             ->when($filter, function ($builder, $filter) {
                 $builder->filters($filter);
+            })
+            ->when($private !== null && $private !== 'all', function ($builder) use ($private) {
+                $builder->visibility(filter_var($private, FILTER_VALIDATE_BOOLEAN));
             })
             ->orderBy('last_pushed_at', 'desc')
             ->get();
@@ -27,6 +32,7 @@ class SiteController extends Controller
             'repositories' => $repositories,
             'user' => auth()->user(),
             'filter' => $filter ?? '',
+            'private' => $private ?? 'all',
         ]);
     }
 }
