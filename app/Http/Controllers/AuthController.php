@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
         }
 
         return view('auth.login');
@@ -56,6 +56,6 @@ class AuthController extends Controller
 
         Auth::login($user, true);
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 }

@@ -3,9 +3,9 @@
 @section('title', 'Repositories - RepoScope')
 
 @section('content')
-    <div class="bg-slate-950 text-slate-100 max-h-screen overflow-hidden">
+    <div class="bg-slate-950 text-slate-100 h-screen overflow-hidden">
         @include('_partials.header')
-        <main class="max-w-[1800px] mx-auto px-8 py-6">
+        <main class="max-w-[1800px] mx-auto px-8 py-6 h-full">
             @include('_partials.filters')
             <div class="grid grid-cols-12 gap-6 mt-6">
                 <div class="col-span-5">

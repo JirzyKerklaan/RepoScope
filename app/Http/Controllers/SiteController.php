@@ -11,9 +11,19 @@ class SiteController extends Controller
 {
     public function index(Request $request)
     {
+        $user = auth()->user();
+
+        $allLanguages = $user->repositories()
+            ->select('language')
+            ->distinct()
+            ->pluck('language')
+            ->filter()
+            ->values()
+            ->toArray();
+
+        $selectedLanguage = $request->query('language', 'all');
         $filter = $request->query('filter');
         $private = $request->query('private');
-        $user = auth()->user();
 
         $repositories = $user->repositories()
             ->with(['users'])
@@ -23,6 +33,9 @@ class SiteController extends Controller
             ->when($private !== null && $private !== 'all', function ($builder) use ($private) {
                 $builder->visibility(filter_var($private, FILTER_VALIDATE_BOOLEAN));
             })
+            ->when($selectedLanguage !== 'all', fn($q) =>
+            $q->where('language', $selectedLanguage)
+            )
             ->orderBy('last_pushed_at', 'desc')
             ->get();
 
@@ -32,6 +45,8 @@ class SiteController extends Controller
             'repositories' => $repositories,
             'user' => auth()->user(),
             'filter' => $filter ?? '',
+            'selectedLanguage' => $selectedLanguage,
+            'allLanguages'     => $allLanguages,
             'private' => $private ?? 'all',
         ]);
     }
