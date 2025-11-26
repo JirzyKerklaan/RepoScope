@@ -41,7 +41,7 @@ class RepositoryService
                         'description' => $repoData['description'],
                         'html_url' => $repoData['html_url'],
                         'default_branch' => $repoData['default_branch'],
-                        'language' => $repoData['language'],
+                        'language' => $repoData['language'] ?? 'Markdown',
                         'last_pushed_at' => Carbon::parse($repoData['pushed_at']),
                         'last_synced_at' => now(),
                         'size' => $repoData['size'],
