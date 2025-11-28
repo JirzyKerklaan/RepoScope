@@ -3,6 +3,7 @@
 @section('title', 'Repositories - RepoScope')
 
 @section('content')
+    @dd($repositories)
     <div class="bg-slate-950 text-slate-100 h-screen overflow-hidden">
         @include('_partials.header')
         <main class="max-w-[1800px] mx-auto px-8 py-6 h-full">

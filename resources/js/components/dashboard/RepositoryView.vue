@@ -60,7 +60,7 @@
                     <span>Updated {{formattedLastPushedAt}}</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                    <span class="w-3 h-3 rounded-full" :class="`bg-color-${repository.language.toLowerCase()}`"></span>
                     <span>{{repository.language}}</span>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                     <Badge variant="outline" class="bg-slate-800 border-slate-700 text-slate-300">
                         {{repository.users.length}} members
                     </Badge>
-                    <a href="{{repository.html_url}}/settings/access" target="_blank">
+                    <a :href="repository.html_url + '/settings/access'" target="_blank">
                         <Badge variant="outline" class="bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 transition-all">
                             <icon type="plus" class="h-4 w-4 text-slate-300"></icon>
                             Add member
@@ -118,14 +118,13 @@
             <div>
                 <div class="space-y-2">
                     <div class="grid grid-cols-12 gap-4 px-4 pb-3 text-xs text-slate-500 border-b border-slate-800">
-                        <div class="col-span-6">Member</div>
+                        <div class="col-span-8">Member</div>
                         <div class="col-span-2">Permission</div>
                         <div class="col-span-2 text-center">Commits</div>
-                        <div class="col-span-2 text-center">Pull requests</div>
                     </div>
 
                     <div v-for="member in repository.users" class="grid grid-cols-12 gap-4 items-center p-4 rounded-lg hover:bg-slate-800/50 transition-colors group">
-                        <div class="col-span-6 flex items-center gap-3">
+                        <div class="col-span-8 flex items-center gap-3">
                             <img
                                 :src="member.avatar"
                                 alt="User"
@@ -138,24 +137,17 @@
                         </div>
 
                         <div class="col-span-2">
-<!--                            <Badge-->
-<!--                                variant="outline"-->
-<!--                                class={getPermissionColor(member.access.permission)}-->
-<!--                            >-->
-<!--                                {getPermissionLabel(member.access.permission)}-->
-<!--                            </Badge>-->
+                            <Badge
+                                variant="outline"
+                            >
+                                test
+<!--                                {{ // getPermissionLabel(member.access.permission) }}-->
+                            </Badge>
                         </div>
 
                         <div class="col-span-2 text-center">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800/50">
                                 <Icon type="gitcommit" class="w-3.5 h-3.5 text-slate-400"/>
-                                <span class="text-slate-100">{{member.pivot.commit_count}}</span>
-                            </div>
-                        </div>
-
-                        <div class="col-span-2 text-center">
-                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800/50">
-                                <Icon type="gitfork" class="w-3.5 h-3.5 text-slate-400"/>
                                 <span class="text-slate-100">{{member.pivot.commit_count}}</span>
                             </div>
                         </div>
