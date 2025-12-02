@@ -1,5 +1,5 @@
 <template>
-    <div v-if="repository" class="bg-slate-900 rounded-lg border border-slate-800 h-full overflow-scroll">
+    <div v-if="repository" class="bg-slate-900 rounded-lg border border-slate-800 h-full max-h-[calc(100vh-175px)] overflow-scroll">
         <div class="p-6 border-b border-slate-800">
             <div class="flex items-start justify-between mb-4">
                 <div class="flex items-center gap-3">
