@@ -35,7 +35,7 @@ class User extends Authenticatable
     public function repositories(): BelongsToMany
     {
         return $this->belongsToMany(Repository::class, 'user_repository')
-            ->withPivot('commit_count')
+            ->withPivot('commit_count', 'role')
             ->withTimestamps();
     }
 }

@@ -33,7 +33,7 @@ class Repository extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_repository')
-            ->withPivot('commit_count')
+            ->withPivot('commit_count', 'role')
             ->withTimestamps();
     }
 

@@ -100,10 +100,11 @@ class RepositoryService
         $request = new FetchRepositoryCollaborators($user->name, $repository->name);
         $response = $forge->send($request)->throw()->json();
 
+        $repoRoles = [];
         foreach ($response as $collaborator) {
             $userRequest = new FetchUser($collaborator['id']);
             $userResponse = (object) $forge->send($userRequest)->throw()->json();
-            Log::info('user response', [$userResponse]);
+
             $user = User::updateOrCreate([
                 'github_id' => $collaborator['id'],
             ], [
@@ -116,8 +117,11 @@ class RepositoryService
                     'token' => $userResponse->token ?? null,
             ]);
 
-            $user->repositories()->attach($repository->id);
+            $repoRoles[$user->id] = ['role' => $collaborator['role_name']];
         }
+
+        User::find(array_keys($repoRoles))
+            ->each(fn($u) => $u->repositories()->syncWithoutDetaching([$repository->id => ['role' => $collaborator['role_name']]]));
     }
 
     public function fetchRepositoryPullRequests($forge, User $user, Repository $repository): void
