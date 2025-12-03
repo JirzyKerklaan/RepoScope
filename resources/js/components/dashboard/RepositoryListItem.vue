@@ -29,8 +29,8 @@
             </Badge>
         </div>
 
-        <p class="text-sm text-slate-400 mb-3 line-clamp-1">
-            {{ repository.description ?? '...'}}
+        <p class="text-sm text-slate-400 mb-3 line-clamp-1 h-[1.25rem]">
+            {{ repository.description}}
         </p>
 
         <div class="flex items-center gap-4 text-xs text-slate-500">
@@ -48,7 +48,7 @@
             </div>
             <div class="flex items-center gap-1 ml-auto">
                 <span class="text-indigo-300 text-slate-400">
-                    {{ repository.users.length }} {{ repository.users.length === 1 ? 'user' : 'users' }}
+                    {{ repository.users.length }} {{ repository.users.length === 1 ? 'member' : 'members' }}
                 </span>
             </div>
         </div>
