@@ -139,6 +139,7 @@
                         <div class="col-span-2">
                             <Badge
                                 variant="outline"
+                                :class="getMemberRoleColor(member.pivot.role)"
                             >
                                 {{ member.pivot.role }}
                             </Badge>
@@ -169,6 +170,19 @@ const props = defineProps({
         required: true
     }
 });
+
+const getMemberRoleColor = (role) => {
+    switch (role.toLowerCase()) {
+        case "admin":
+            return "text-purple-400 bg-purple-500/20";
+        case "write":
+            return "text-indigo-400 bg-indigo-500/20";
+        case "read":
+            return "text-orange-300 bg-orange-500/20";
+        case "watcher":
+            return "text-green-400 bg-green-500/20";
+    }
+}
 
 const totalCommits = computed(() => props.repository.commits_count || 0);
 

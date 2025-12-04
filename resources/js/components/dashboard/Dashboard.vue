@@ -8,7 +8,7 @@
                 </div>
 
                 <section>
-                    <div class="p-2">
+                    <div class="p-2 pb-0">
                         <RepositoryList
                             :repositories="repositories"
                             :selectRepository="selectRepository"
