@@ -26,6 +26,7 @@ import {
     TrendingUp,
     LogOut,
     Plus,
+    ScrollText,
 } from 'lucide-vue-next';
 
 export default {
@@ -59,6 +60,7 @@ export default {
                 trendingup: TrendingUp,
                 logout: LogOut,
                 plus: Plus,
+                list: ScrollText,
             };
 
             return icons[this.type.toLowerCase()] || null;

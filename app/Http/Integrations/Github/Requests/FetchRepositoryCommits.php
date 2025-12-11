@@ -7,17 +7,11 @@ use Saloon\Http\Request;
 
 class FetchRepositoryCommits extends Request
 {
-    protected string $owner;
-    protected string $repo;
-    protected int $page;
     public function __construct(
-        string $owner,
-        string $repo,
-        int $page = 1
+        private readonly string $owner,
+        private readonly string $repo,
+        private readonly int $page = 1
     ) {
-        $this->owner = $owner;
-        $this->repo = $repo;
-        $this->page = $page;
     }
 
     /**

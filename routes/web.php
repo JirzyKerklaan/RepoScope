@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CollaboratorController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SettingsController;
 use App\Jobs\SyncGithubRepositories;
@@ -22,4 +23,6 @@ Route::middleware(['auth'])->group(function () {
         SyncGithubRepositories::dispatchSync(auth()->user());
         redirect()->route('dashboard');
     });
+
+    Route::put('/{repository}/collaborator', [CollaboratorController::class, 'putCollaborator'])->name('collaborator.put');
 });
