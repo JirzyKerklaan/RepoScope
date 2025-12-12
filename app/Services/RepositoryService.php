@@ -8,7 +8,7 @@ use App\Http\Integrations\Github\Requests\FetchRepositoryBranches;
 use App\Http\Integrations\Github\Requests\FetchRepositoryCollaborators;
 use App\Http\Integrations\Github\Requests\FetchRepositoryCommits;
 use App\Http\Integrations\Github\Requests\FetchRepositoryPullRequests;
-use App\Http\Integrations\Github\Requests\FetchUser;
+use App\Http\Integrations\Github\Requests\FetchUserByID;
 use App\Models\Repository;
 use App\Models\User;
 use Carbon\Carbon;
@@ -73,7 +73,10 @@ class RepositoryService
         } while (count($response) === 100);
 
         $user->repositories()->syncWithoutDetaching([
-            $repository->id => ['commit_count' => $commitCount],
+            $repository->id => [
+                'commit_count' => $commitCount,
+                'role' => 'maintain'
+            ],
         ]);
 
     }
@@ -102,7 +105,7 @@ class RepositoryService
 
         $repoRoles = [];
         foreach ($response as $collaborator) {
-            $userRequest = new FetchUser($collaborator['id']);
+            $userRequest = new FetchUserByID($collaborator['id']);
             $userResponse = (object) $forge->send($userRequest)->throw()->json();
 
             $user = User::updateOrCreate([

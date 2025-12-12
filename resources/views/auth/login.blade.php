@@ -17,9 +17,9 @@
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-8 shadow-xl">
             <div class="mb-8">
-                <h2 class="text-slate-100 text-xl mb-2">Welcome back</h2>
+                <h2 class="text-slate-100 text-xl mb-2">Welcome!</h2>
                 <p class="text-slate-400 text-sm">
-                    Sign in to your organization to manage repository access and permissions
+                    Sign in to your github account to manage repository access and permissions
                 </p>
             </div>
 
@@ -33,15 +33,6 @@
 
             <p class="text-slate-500 text-xs text-center mt-6">
                 By signing in, you agree to our Terms of Service and Privacy Policy
-            </p>
-        </div>
-
-        <div class="mt-8 text-center">
-            <p class="text-slate-500 text-sm">
-                Don't have access?
-                <a href="#" class="text-indigo-400 hover:text-indigo-300 transition-colors">
-                    Request an invitation
-                </a>
             </p>
         </div>
     </div>

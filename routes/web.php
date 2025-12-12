@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollaboratorController;
 use App\Http\Controllers\SiteController;
-use App\Http\Controllers\SettingsController;
 use App\Jobs\SyncGithubRepositories;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +24,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::put('/{repository}/collaborator', [CollaboratorController::class, 'putCollaborator'])->name('collaborator.put');
+
+    Route::prefix('member')->group(function () {
+        Route::get('', [CollaboratorController::class, 'getMember'])->name('member');
+    });
 });

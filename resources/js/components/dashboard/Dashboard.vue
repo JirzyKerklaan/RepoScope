@@ -23,14 +23,17 @@
             <RepositoryView :repository="selected" />
         </div>
     </div>
+
+    <CollaboratorPopup :isOpen="isOpen" :onClose="onClose" />
 </template>
 
 <script>
 import RepositoryList from "./RepositoryList.vue";
 import RepositoryView from "./RepositoryView.vue";
+import CollaboratorPopup from "./collaborators/CollaboratorPopup.vue";
 
 export default {
-    components: { RepositoryList, RepositoryView },
+    components: {CollaboratorPopup, RepositoryList, RepositoryView },
 
     props: {
         repositories: {
@@ -41,6 +44,7 @@ export default {
 
     data() {
         return {
+            isOpen: true,
             selected: this.repositories[0]
         }
     },
@@ -48,6 +52,9 @@ export default {
     methods: {
         selectRepository(repo) {
             this.selected = repo
+        },
+        onClose() {
+            this.isOpen = false;
         }
     }
 }

@@ -1,0 +1,42 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn.danger:hover {
+    * {
+        transition: all 0.2s ease-in-out;
+        color: oklch(70.4% 0.191 22.216) !important;
+    }
+}
+
+.btn:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.btn svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+}
+
+.btn:focus-visible {
+    border: 1px solid var(--ring);
+    box-shadow: 0 0 0 3px rgba(var(--ring-rgb), 0.5);
+}
+
+.btn[aria-invalid="true"] {
+    border: 1px solid var(--destructive);
+    box-shadow: 0 0 0 3px rgba(var(--destructive-rgb), 0.2);
+}

@@ -27,6 +27,8 @@ import {
     LogOut,
     Plus,
     ScrollText,
+    X,
+    Trash2
 } from 'lucide-vue-next';
 
 export default {
@@ -61,6 +63,8 @@ export default {
                 logout: LogOut,
                 plus: Plus,
                 list: ScrollText,
+                x: X,
+                trash2: Trash2,
             };
 
             return icons[this.type.toLowerCase()] || null;
