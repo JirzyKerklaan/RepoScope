@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -37,5 +38,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Repository::class, 'user_repository')
             ->withPivot('commit_count', 'role')
             ->withTimestamps();
+    }
+
+    public function frequentMembers(): HasMany
+    {
+        return $this->hasMany(FrequentMember::class);
     }
 }

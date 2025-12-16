@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CollaboratorController;
+use App\Http\Controllers\FrequentMemberController;
 use App\Http\Controllers\SiteController;
 use App\Jobs\SyncGithubRepositories;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +23,9 @@ Route::middleware(['auth'])->group(function () {
         redirect()->route('dashboard');
     });
 
-    Route::put('/{repository}/collaborator', [CollaboratorController::class, 'putCollaborator'])->name('collaborator.put');
-
-    Route::prefix('member')->group(function () {
-        Route::get('', [CollaboratorController::class, 'getMember'])->name('member');
+    Route::prefix('members')->group(function () {
+        Route::get('', [FrequentMemberController::class, 'getMembers'])->name('member');
+        Route::get('{username}', [FrequentMemberController::class, 'getMember'])->name('member');
+        Route::put('', [FrequentMemberController::class, 'putMember'])->name('member.put');
     });
 });

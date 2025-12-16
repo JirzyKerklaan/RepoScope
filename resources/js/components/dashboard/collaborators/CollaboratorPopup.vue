@@ -17,12 +17,6 @@
                     Map GitHub usernames to display names for easier identification
                 </p>
             </div>
-<!--            <button-->
-<!--                @click="handleCancel"-->
-<!--                class="text-slate-400 hover:text-slate-100 transition-colors"-->
-<!--            >-->
-<!--                <Icons type="x" class="w-6 h-6" />-->
-<!--            </button>-->
         </div>
 
         <div class="flex-1 grid grid-cols-2 gap-6 p-6 overflow-hidden">
@@ -147,7 +141,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import axios from 'axios';
 import Icons from "../../../icons/Icons.vue";
+import {onMounted} from "vue";
 
 const props = defineProps({
     isOpen: Boolean,
@@ -158,20 +154,18 @@ const processing = ref(false);
 const step = ref('username');
 const githubUsername = ref('');
 const displayName = ref('');
+const frequentUser = ref({});
 const emit = defineEmits(["close"]);
 
-const frequentMembers = ref([
-    { id: '1', githubUsername: 'octocat', displayName: 'Octo Cat' },
-    { id: '2', githubUsername: 'torvalds', displayName: 'Linus Torvalds' },
-    { id: '3', githubUsername: 'gaearon', displayName: 'Dan Abramov' }
-]);
+const frequentMembers = ref([]);
 
 function handleNext() {
     processing.value = true
     if (githubUsername.value.trim()) {
-        axios.get('/member', { params: { username: githubUsername.value }
-            }).then((response) => {
-                displayName.value = response.data.name;
+        axios.get('/members/' + githubUsername.value)
+            .then((response) => {
+                displayName.value = response.data.display_name;
+                frequentUser.value = response.data
                 step.value = 'name';
             }).catch((error) => {
                 console.log(error);
@@ -183,15 +177,20 @@ function handleNext() {
 
 function handleSave() {
     if (displayName.value.trim()) {
-        frequentMembers.value.push({
-            id: Date.now().toString(),
-            githubUsername: githubUsername.value.trim(),
-            displayName: displayName.value.trim()
-        });
-
-        githubUsername.value = '';
-        displayName.value = '';
-        step.value = 'username';
+        processing.value = true
+        frequentUser.value.display_name = displayName.value;
+        axios.put('/members', { ...frequentUser.value })
+            .then((response) => {
+                console.log(response.data);
+                frequentUser.value = [];
+                githubUsername.value = '';
+                displayName.value = '';
+                step.value = 'username';
+            }).catch((error) => {
+                console.log(error);
+            }).finally(() => {
+                processing.value = false
+        })
     }
 }
 
