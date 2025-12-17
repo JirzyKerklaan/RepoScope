@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PutFrequentMemberRequest extends FormRequest
 {
@@ -21,7 +22,7 @@ class PutFrequentMemberRequest extends FormRequest
                 'required',
                 'string',
             ],
-            'avatar' => [
+            'avatar_url' => [
                 'string',
                 'nullable',
             ],

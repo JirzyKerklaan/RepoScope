@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('github_id');
+            $table->unique(['user_id', 'github_id']);
             $table->string('username');
             $table->string('display_name');
             $table->string('avatar_url');

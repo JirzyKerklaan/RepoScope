@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <CollaboratorPopup :isOpen="isOpen" :onClose="onClose" />
+    <CollaboratorPopup :isOpen="isOpen" :onClose="onClose" :members="localFrequentMembers" />
 </template>
 
 <script>
@@ -39,13 +39,20 @@ export default {
         repositories: {
             type: Array,
             required: true
+        },
+        frequentMembers: {
+            type: Array,
+            required: true
         }
     },
 
     data() {
         return {
             isOpen: true,
-            selected: this.repositories[0]
+            selected: this.repositories[0],
+            localFrequentMembers: Array.isArray(this.frequentMembers)
+                ? [...this.frequentMembers]
+                : []
         }
     },
 
@@ -55,6 +62,9 @@ export default {
         },
         onClose() {
             this.isOpen = false;
+        },
+        addMember(member) {
+            this.localFrequentMembers.push(member)
         }
     }
 }

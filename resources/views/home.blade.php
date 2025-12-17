@@ -7,7 +7,7 @@
         @include('_partials.header')
         <main class="max-w-[1800px] mx-auto px-8 py-6 h-full">
             @include('_partials.filters')
-            <rs-dashboard :repositories='@json($repositories)'></rs-dashboard>
+            <rs-dashboard :repositories='@json($repositories)' :frequent-members='@json($frequentMembers)'></rs-dashboard>
         </main>
     </div>
 @endsection

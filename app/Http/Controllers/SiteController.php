@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Integrations\Github\GithubApi;
 use App\Http\Integrations\Github\Requests\FetchRepositories;
+use App\Models\FrequentMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -39,10 +40,11 @@ class SiteController extends Controller
             ->orderBy('last_pushed_at', 'desc')
             ->get();
 
-//        $repositories = auth()->user()->repositories()->orderBy('name')->get();
+        $frequentMembers = FrequentMember::query()->where('user_id', auth()->id())->get();
 
         return view('home', [
             'repositories' => $repositories,
+            'frequentMembers' => $frequentMembers,
             'user' => auth()->user(),
             'filter' => $filter ?? '',
             'selectedLanguage' => $selectedLanguage,

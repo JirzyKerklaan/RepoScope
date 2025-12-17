@@ -27,14 +27,14 @@ class FrequentMemberController extends Controller
             return response()->json(['error' => 'Username is required'], 400);
         }
 
-        $user = $this->collaboratorService->fetchCollaborator($username);
+        $user = $this->collaboratorService->fetchFrequentMember($username);
 
         return response()->json($user);
     }
 
 
-    public function putMember(PutFrequentMemberRequest $request): void
+    public function putMember(PutFrequentMemberRequest $request): JsonResponse
     {
-        $this->collaboratorService->putCollaborator($request->validated());
+        return $this->collaboratorService->putFrequentMember($request->validated());
     }
 }
