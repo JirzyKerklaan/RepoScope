@@ -48,7 +48,7 @@ export default {
 
     data() {
         return {
-            isOpen: true,
+            isOpen: false,
             selected: this.repositories[0],
             localFrequentMembers: Array.isArray(this.frequentMembers)
                 ? [...this.frequentMembers]
@@ -60,12 +60,22 @@ export default {
         selectRepository(repo) {
             this.selected = repo
         },
+        onOpen() {
+            this.isOpen = true;
+        },
         onClose() {
             this.isOpen = false;
         },
         addMember(member) {
             this.localFrequentMembers.push(member)
         }
-    }
+    },
+
+    mounted() {
+        window.addEventListener('open-frequent-members', this.onOpen);
+    },
+    beforeUnmount() {
+        window.removeEventListener('open-frequent-members', this.onClose);
+    },
 }
 </script>

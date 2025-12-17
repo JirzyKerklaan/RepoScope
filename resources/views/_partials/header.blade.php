@@ -13,7 +13,10 @@
         </a>
 
         <div class="flex items-center gap-0">
-            <x-button class="text-slate-400 hover:text-slate-100 hover:bg-slate-800">
+            <x-button
+                class="text-slate-400 hover:text-slate-100 hover:bg-slate-800"
+                onclick="window.dispatchEvent(new Event('open-frequent-members'))"
+            >
                 <icon type="list" class="w-5 h-5 text-slate-400"></icon>
                 <span>Frequent members</span>
             </x-button>
